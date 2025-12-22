@@ -2,6 +2,7 @@ package com.lif.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.jspecify.annotations.Nullable;
 
 import java.util.List;
 
@@ -31,4 +32,11 @@ public class User {
     )
     private List<Todo> todos;
 
+    public @Nullable String getPassword() {
+        return password;
+    }
+
+    public Long getId() {
+        return id;
+    }
 }
