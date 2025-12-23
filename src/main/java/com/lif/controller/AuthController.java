@@ -1,11 +1,14 @@
 package com.lif.controller;
 
+import com.lif.model.dto.ApiResponse;
 import com.lif.model.dto.LoginRequest;
 import com.lif.model.dto.LoginResponse;
 import com.lif.model.dto.RegisterRequest;
 import com.lif.service.AuthService;
 
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -19,13 +22,18 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public LoginResponse login(@RequestBody LoginRequest request) {
-        return authService.login(request);
+    public ApiResponse<LoginResponse> login(
+            @Valid @RequestBody LoginRequest request
+    ) {
+        LoginResponse response = authService.login(request);
+        return ApiResponse.success("Login successful", response);
     }
 
     @PostMapping("/register")
-    public String register(@RequestBody RegisterRequest request) {
+    public ApiResponse<?> register(
+            @Valid @RequestBody RegisterRequest request
+    ) {
         authService.register(request);
-        return "User registered successfully";
+        return ApiResponse.success("User registered successfully", null);
     }
 }

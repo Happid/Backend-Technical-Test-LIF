@@ -19,6 +19,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
+    private String username;
+
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -31,12 +34,4 @@ public class User {
             orphanRemoval = true
     )
     private List<Todo> todos;
-
-    public @Nullable String getPassword() {
-        return password;
-    }
-
-    public Long getId() {
-        return id;
-    }
 }

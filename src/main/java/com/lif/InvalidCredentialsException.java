@@ -1,4 +1,4 @@
-package com.lif.config;
+package com.lif;
 
 public class InvalidCredentialsException extends RuntimeException {
     public InvalidCredentialsException(String message) {

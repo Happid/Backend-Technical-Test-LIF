@@ -1,6 +1,6 @@
 package com.lif.service;
 
-import com.lif.config.InvalidCredentialsException;
+import com.lif.InvalidCredentialsException;
 import com.lif.config.JwtUtil;
 import com.lif.model.User;
 import com.lif.model.dto.LoginRequest;
@@ -28,24 +28,27 @@ public class AuthService {
 
     public LoginResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new InvalidCredentialsException("Invalid email or password"));
+                .orElseThrow(() ->
+                        new InvalidCredentialsException("Invalid email or password")
+                );
 
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new InvalidCredentialsException("Invalid email or password");
         }
 
-        String token = jwtUtil.generateToken(user.getId());
+        String token = jwtUtil.generateToken(user.getId(), user.getEmail());
         return new LoginResponse(token);
     }
 
     public void register(RegisterRequest request) {
-        if (userRepository.findByEmail(request.getEmail()).isPresent()) {
-            throw new RuntimeException("Email already registered");
+        if (userRepository.existsByEmail(request.getEmail())) {
+            throw new IllegalArgumentException("Email already registered");
         }
 
         User user = User.builder()
                 .email(request.getEmail())
-                .password(passwordEncoder.encode(request.getPassword())) // 🔐
+                .username(request.getUsername())
+                .password(passwordEncoder.encode(request.getPassword()))
                 .build();
 
         userRepository.save(user);

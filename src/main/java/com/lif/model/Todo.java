@@ -4,12 +4,11 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Table(name = "todos")
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "todos")
 public class Todo {
 
     @Id
@@ -18,6 +17,8 @@ public class Todo {
 
     @Column(nullable = false)
     private String title;
+
+    private String description;
 
     @Column(nullable = false)
     private boolean completed = false;
