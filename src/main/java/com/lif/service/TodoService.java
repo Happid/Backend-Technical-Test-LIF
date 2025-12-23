@@ -59,6 +59,7 @@ public class TodoService {
 
         todo.setTitle(request.getTitle());
         todo.setDescription(request.getDescription());
+        todo.setCompleted(request.getCompleted());
 
         return mapToResponse(todoRepository.save(todo));
     }

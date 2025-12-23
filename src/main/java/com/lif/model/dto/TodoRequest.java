@@ -10,7 +10,7 @@ public class TodoRequest {
 
     @NotBlank(message = "Title must not be blank")
     private String title;
-
     private String description;
+    private Boolean completed;
 
 }
