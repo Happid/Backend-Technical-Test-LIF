@@ -15,7 +15,8 @@ public class CorsConfig {
 
         config.setAllowedOrigins(List.of(
                 "http://localhost:3000",
-                "http://localhost:5173"
+                "http://localhost:5173",
+                "https://frontend-technical-test-lif.vercel.app"
         ));
 
         config.setAllowedMethods(List.of(
